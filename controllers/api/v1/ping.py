@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify
-from forms import *
 
 ping = Blueprint('ping', __name__)
 

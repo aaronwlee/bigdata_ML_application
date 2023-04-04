@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request, current_app
-from forms import *
 from werkzeug.utils import secure_filename
 from threading import Thread
 from services.mongo_service import drop_collection

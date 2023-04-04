@@ -13,9 +13,8 @@ def index():
 
 @view_controller.route('/collections')
 def collections():
-    message = request.args.get('message')
     collections = get_collection_list()
-    data = { "collections": collections, "busy_collections": event_is_set(), "message": message }
+    data = { "collections": collections, "busy_collections": event_is_set() }
     return render_template(f'pages/collections.html', data=data)
 
 @view_controller.route('/detail/<collection>')
@@ -48,7 +47,7 @@ def add(collection):
                     data_dict[field] = input_data
         print(data_dict)
         insert_one_to_collection(collection, data_dict)
-        return redirect('/collections?message="Successfully insert a data"')
+        return redirect('/collections?message=Successfully insert a data')
     else:
         print(request.method)
         return redirect('/collections')
