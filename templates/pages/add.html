@@ -1,0 +1,31 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Add{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="row text-center">
+    <h1>{{ data.title }}</h1>
+    <hr style="margin-bottom: 60px;"/>
+  </div>
+
+  <form method="post" class="form">
+    {% for field in data.fields %}
+      {% if field != '_id' %}
+      <div class="row">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="{{ field }}" aria-label="{{ field }}" aria-describedby="{{ field }}">
+          <span class="input-group-text" id="{{ field }}">{{ field }}</span>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+    <div class="row" style="padding: 20px; margin-top: 20px;">
+      <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+{% endblock %}

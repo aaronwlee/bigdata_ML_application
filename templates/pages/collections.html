@@ -1,0 +1,90 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Collections{% endblock %}
+{% block content %}
+
+<div id="liveAlertPlaceholder"></div>
+{% if data.busy_collections %}
+<div class="alert alert-warning" role="alert">
+  A file upload operation is in progress in the background. You cannot upload files at this time.
+</div>
+{% endif %}
+
+<div class="container">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-8">
+      <h1>
+        Collections
+      </h1>
+    </div>
+    <div class="col-4 text-end">
+        <button id="upload_modal_toggle" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload_modal" 
+        {% if data.busy_collections %}
+          disabled
+        {% endif %}
+        >
+          New Collection
+          
+        </button>
+    </div>
+  </div>
+  <div class="row">
+    <hr style="margin-bottom: 60px;"/>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Collection Name</th>
+      <th scope="col">Append</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    {% for i in range(data.collections | length) %}
+    <tr>
+      <th scope="row">{{ i+1 }}</th>
+      <td style="cursor: pointer;" onclick="window.location='/detail/{{ data.collections[i] }}'">
+        {{ data.collections[i] }}
+      </td>
+      <td><a role="button"
+        {% if data.busy_collections %}
+          class="btn btn-primary disabled"
+          aria-disabled="true"
+        {% else %}
+          class="btn btn-primary"
+          href="/add/{{ data.collections[i] }}"
+        {% endif %}
+        ><i class="bi bi-pencil"></i></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="upload_modal" tabindex="-1" aria-labelledby="upload_file" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="upload_file">Upload file to collections</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="post" class="form insert_by_file" enctype="multipart/form-data">
+        <div class="modal-body">
+            <div>
+              <label for="formFile" class="form-label">file input</label>
+              <input autofocus class="form-control form-control-lg" id="formFile" name="file" type="file" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/static/js/collections.js"></script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Detail{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <h1>{{ result.title }}</h1>
+        <hr style="margin-bottom: 60px;"/>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    {% for field in result['fields'] %}
+                        <th scope="col">{{ field }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for row in result['data'] %}
+                    <tr>
+                    {% for field in result['fields'] %}
+                        {% if field == '_id' %}
+                            <th scope="row">{{ row['_id'] }}</th>
+                        {% else %}
+                            <td>{{ row[field] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-sm">
+                {% for page_number in result.pagination %}
+                    <li class="page-item {% if page_number == result.current_page %} active {% endif %} {% if page_number == '...' %} disabled {% endif %}'">
+                        <a class="page-link" {% if page_number != "..." %} href="?page={{ page_number }} {% endif %}">
+                            {{ page_number }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}
