@@ -1,4 +1,7 @@
-from database import get_mongo_spark_for_thread
+from database import get_mongo_spark_for_thread, get_mongo_spark
+from werkzeug.local import LocalProxy
+
+sc = LocalProxy(get_mongo_spark)
 
 def sprak_write_file_to_mongo(file_name, file_path, set_event, clear_event):
     set_event()

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 
-from services.mongo_service import get_collection_list, get_by_collection_with_page, get_collection_page_size, get_collection_expain, insert_one_to_collection
-from utils import get_adjust_pagination, event_is_set
+from services.mongo_service import get_by_collection_with_page, get_collection_page_size, get_collection_expain, insert_one_to_collection
+from utils import get_adjust_pagination
 
 view_controller = Blueprint('view_controller', __name__, template_folder='templates')
 
@@ -13,9 +13,7 @@ def index():
 
 @view_controller.route('/collections')
 def collections():
-    collections = get_collection_list()
-    data = { "collections": collections, "busy_collections": event_is_set() }
-    return render_template(f'pages/collections.html', data=data)
+    return render_template(f'pages/collections.html')
 
 @view_controller.route('/detail/<collection>')
 def detail(collection):
@@ -51,3 +49,11 @@ def add(collection):
     else:
         print(request.method)
         return redirect('/collections')
+    
+
+@view_controller.route('/predict/<collection>')
+def predict(collection):
+    result = {
+        "title": collection
+    }
+    return render_template(f'pages/predict.html', data=result)

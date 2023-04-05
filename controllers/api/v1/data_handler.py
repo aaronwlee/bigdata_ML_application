@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, current_app
 from werkzeug.utils import secure_filename
 from threading import Thread
-from services.mongo_service import drop_collection
+from services.mongo_service import drop_collection, get_collection_list
 
 from services.spark_service import sprak_write_file_to_mongo
 from utils import allowed_file, set_event, clear_event, event_is_set
@@ -10,7 +10,7 @@ import os
 data_handler = Blueprint('data_handler', __name__)
 
 @data_handler.route('/insert_by_file', methods=["POST"])
-def insert_file():
+def insert_by_file():
     try:
         if event_is_set():
             raise Exception("A file upload operation is in progress in the background. You cannot upload files at this time.")
@@ -24,8 +24,28 @@ def insert_file():
             th = Thread(target=sprak_write_file_to_mongo, args=(file_name, file_path, set_event, clear_event), daemon=True)
             th.start()
 
-            return jsonify({"status": 200, "message": "Successfully pend a uploading in background. Please refresh the page to check."})
+            return jsonify({"status": "ok", "data": "Successfully pend a uploading in background. Please refresh the page to check."})
         else:
-            return jsonify({"status": 500, "message": "The file either does not exist or is not a csv or txt file format."})
+            return jsonify({"status": "failed", "data": "The file either does not exist or is not a csv or txt file format."})
     except Exception as e:
         raise e
+    
+@data_handler.route('/get_collections', methods=["GET"])
+def get_collections():
+    try:
+        collections = get_collection_list()
+        result = {
+            "status":"ok",
+            "data": collections
+        }
+        return jsonify(result)
+    except Exception as e:
+        raise e
+
+@data_handler.route('/get_thread_status', methods=["GET"])
+def get_thread_status():
+    result = {
+        "status": "ok",
+        "data": event_is_set()
+    }
+    return jsonify(result)

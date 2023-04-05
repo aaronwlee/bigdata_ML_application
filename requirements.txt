@@ -3,3 +3,4 @@ python-dotenv
 Flask-PyMongo
 pymongo
 pyspark
+flask-socketio

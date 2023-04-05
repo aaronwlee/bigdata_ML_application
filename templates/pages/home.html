@@ -2,13 +2,161 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="page-header">
-  <h1>About This Project</h1>
+<div class="container text-center">
+  <div class="row p-2">
+    <p class="lead">
+      <em>Big Data Management Systems and Tools</em>
+    </p>
+  </div>
+  <div class="row p-3">
+    <h1>Supporting the prediction of geological domain units for gold exploration</h1>
+  </div>
+  
+  <div class="row p-3 justify-content-center">
+    <div class="col-4">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Fernando Lopez</td>
+          </tr>
+          <tr>
+            <td>Maria Adelaida Fernandez</td>
+          </tr>
+          <tr>
+            <td>Ihab El Attar</td>
+          </tr>
+          <tr>
+            <td>Samina Warraich</td>
+          </tr>
+          <tr>
+            <td>Azadeh Naghibi</td>
+          </tr>
+          <tr>
+            <td>Aaron Wooseok Lee</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row p-2">
+    <p>Group 18</p>
+  </div>
 </div>
-<p class="lead">This is just a placeholder page which should be replaced with real content.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tellus ligula, imperdiet id lobortis sit amet, scelerisque non sapien. Duis quis dui quis mauris dapibus fringilla. Pellentesque nec tellus ac diam volutpat malesuada.</p>
-<p>In quam arcu, interdum vel arcu viverra, vulputate convallis massa. Sed hendrerit velit a arcu euismod, sit amet consequat lacus imperdiet. Nullam quis dui sapien. Vestibulum placerat, justo non fringilla laoreet, dui ipsum posuere nisi, nec vestibulum eros leo ut sapien.</p>
-<p>Vivamus eu felis sed magna scelerisque semper in et libero. Curabitur sed convallis odio, quis venenatis sapien. In convallis a velit ac commodo. Donec sapien ligula, vestibulum ut nisi accumsan, facilisis pretium est. Fusce varius semper orci, et egestas nulla cursus a. Phasellus aliquam, mi ac adipiscing lobortis, ipsum augue aliquam ligula, quis fermentum mi augue vel ligula.</p>
-<p>Integer elementum malesuada dolor in aliquet.</p>
+
+<br>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <a role="button" class="btn btn-primary col-4" href="/collections">Get Start</a>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container">
+  <div class="row">
+    <h2 class="lead">Project Topic:</h2>
+  </div>
+  <div class="row">
+    <p>
+      Build, finetune and deploy a Machine Learning model application using unsupervised clustering analysis to predict geological domain units from laboratory sample geochemistry.
+    </p>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container">
+  <div class="row">
+    <h2 class="lead">Dataset:</h2>
+  </div>
+  <div class="row">
+    <p>
+      The data consists of laboratory geochemistry analysis performed on continuous rock samples obtained from drilling. 
+      These samples belong to the TUL exploration project in Manitoba.
+      Samples and results are stored in the Assay table which will be used to create the ML model.
+    </p>
+  </div>
+  <div class="row p-2">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">ASSAY TABLE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Description</th>
+            <td>
+              Laboratory results grouped by drillhole number (HOLEID) and analyzed interval (SAMPFROM - SAMPTO).
+              It contains 96 columns with geochemical results for each sampled interval (SAMPLEID).
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Size</th>
+            <td>
+              12648 rows x 96 columns
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row p-2 justify-content-center">
+    <img class="col-8" src="/static/img/example.png"/>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container">
+  <div class="row">
+    <h2 class="lead">Objective:</h2>
+  </div>
+  <div class="row">
+    <p>
+      The main objective of the project is to build an application to support geologists with the identification of rock types 
+      (lithology) in their exploration areas. 
+      This application will (1) speed up the geological logging process and (2) provide qualitative information for the project. 
+    </p>
+    <p>
+      To build the application, the best machine learning model will be trained and tested using a subsample of the existing dataset, 
+      using a refined pipeline and hyperparameter tuning in Spark (Databricks), 
+      to cluster future drilling samples and support the identification of areas better suited for gold exploration and mining. 
+      Once the pipeline is created, options for packaging the model and deploying it will be explored, 
+      including creating widgets on Databricks and building a front end using Flask.
+    </p>
+  </div>
+</div>
+
+<br><br>
+
+<div class="container text-center">
+  <div class="row">
+    <h2 class="lead">Workflow:</h2>
+  </div>
+  <div class="row justify-content-center">
+    <img class="col-4" style="height: 100%;" src="/static/img/workflow.png"/>
+  </div>
+  <br>
+  <div class="row p-2">
+    <p>
+      An application will be created with the best ML model for deployment.
+    </p>
+  </div>
+</div>
+
+<br><br><br>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <a role="button" class="btn btn-primary col-4" href="/collections">Get Start</a>
+  </div>
+</div>
+
+<br><br>
 
 {% endblock %}
