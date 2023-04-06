@@ -19,8 +19,6 @@ def insert_by_file():
             file_name = secure_filename(file.filename)
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
             file.save(file_path)
-            # drop collection if exist
-            drop_collection(file_name)
             th = Thread(target=sprak_write_file_to_mongo, args=(file_name, file_path, set_event, clear_event), daemon=True)
             th.start()
 
@@ -47,5 +45,18 @@ def get_thread_status():
     result = {
         "status": "ok",
         "data": event_is_set()
+    }
+    return jsonify(result)
+
+@data_handler.route('/delete_collection', methods=["DELETE"])
+def delete_collection():
+    body = request.json
+    print(body)
+    if not body.get("collection"):
+        raise Exception("Unable to find collection in request")
+    
+    drop_collection(body.get("collection"))
+    result = {
+        "status": "ok",
     }
     return jsonify(result)

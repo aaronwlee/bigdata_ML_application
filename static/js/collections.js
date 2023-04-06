@@ -1,5 +1,5 @@
 import alert_render from "./modules/alert_render.js"
-import { upload_file, get_collections, get_thread_status } from "./modules/api_services.js"
+import { upload_file, get_collections, get_thread_status, delete_collection } from "./modules/api_services.js"
 import placeholder_render from "./modules/placeholder_render.js"
 
 async function block_new_collection() {
@@ -19,8 +19,13 @@ async function block_new_collection() {
     alert_render("A file upload operation is in progress in the background. You cannot upload files at this time.", "warning")
     upload_btn.setAttribute("disabled", true)
   }
+}
 
-
+function confirm_delete(collection) {
+  if (confirm("Are you sure to delete?") == true) {
+    delete_collection(collection)
+    reload_collections()
+  }
 }
 
 async function reload_collections() {
@@ -61,7 +66,7 @@ async function reload_collections() {
       `<i class="bi bi-pencil"></i>`,
       `</a>`,
 
-      `<a role="button" class="btn btn-primary right-space" href="/delete/${collection}">`,
+      `<a id="delete-collection" role="button" class="btn btn-primary right-space">`,
       `<i class="bi bi-trash3"></i>`,
       `</a>`,
 
@@ -69,6 +74,8 @@ async function reload_collections() {
       `Demo`,
       `</a>`,
     ].join('')
+
+    appendTd.querySelector("#delete-collection").onclick = () => confirm_delete(collection)
     
 
     tr.append(th, collection_name, appendTd)

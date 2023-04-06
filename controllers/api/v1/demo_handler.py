@@ -1,9 +1,9 @@
 import matplotlib as mpl
 mpl.use('Agg')
 
-from flask import current_app
+from flask import current_app, request
 from flask_socketio import emit
-from database import get_mongo_spark, get_mongo_spark_for_thread
+from database import get_mongo_spark, get_new_mongo_spark
 from werkzeug.local import LocalProxy
 from main import socketio
 
@@ -34,9 +34,13 @@ from io import BytesIO
 
 connections = []
 
-sc = LocalProxy(get_mongo_spark)
+spark = LocalProxy(get_mongo_spark)
 
 def emit_img(buffer):
+    id = request.sid
+    print("emit_img", id, connections)
+    if id not in connections:
+        raise Exception("disconnected")
     buffer.seek(0)
     for line in buffer:
         emit("img-stream", { "status": "ongoing", "data": line })
@@ -44,34 +48,40 @@ def emit_img(buffer):
     emit("img-stream", { "status": "done" })
 
 def emit_dataframe(df):
+    id = request.sid
+    print("emit_img", id, connections)
+    if id not in connections:
+        raise Exception("disconnected")
     emit("html", df.to_html())
 
 def emit_message(msg):
+    id = request.sid
+    print("emit_img", id, connections)
+    if id not in connections:
+        raise Exception("disconnected")
     emit("message", msg)
 
 
 @socketio.on('connect')
 def test_connect():
-    emit_message("Connected")
+    id = request.sid
+    if id not in connections:
+        connections.append(id)
     print("connected")
 
 @socketio.on('disconnect')
 def test_disconnect():
+    id = request.sid
+    if id in connections:
+        connections.remove(id)
     print('Client disconnected')
-
-@socketio.on('img')
-def img_test():
-    fs = open("./static/img/workflow.png", "rb")
-    emit_img(fs)
-
-
 
 
 @socketio.on('start')
 def handle_message(collection):
     try:
         emit_message("[Stage: 1] Spark Ready")
-        sc = get_mongo_spark_for_thread()
+        sc = get_new_mongo_spark()
 
         emit_message("[Stage: 2] Load data from MongoDB")
         df = sc.read.format("mongodb").option("uri", current_app.config["MONGO_URI"]).option("database", "bigdata").option("collection", collection).load()

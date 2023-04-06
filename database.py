@@ -19,6 +19,7 @@ class MongoJsonEncoder(JSONEncoder):
         if isinstance(obj, ObjectId):
             return str(obj)
         return json_util.default(obj, json_util.CANONICAL_JSON_OPTIONS)
+    
 
 def get_db():
     """
@@ -47,6 +48,19 @@ def get_mongo_spark():
        
     return sc
 
+def get_new_mongo_spark():
+    newsc = sc.newSession()
+    newsc = newsc \
+            .builder \
+            .appName("myApp") \
+            .config("spark.mongodb.read.connection.uri", os.getenv("MONGO_URI")) \
+            .config("spark.mongodb.write.connection.uri", os.getenv("MONGO_URI")) \
+            .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
+            .getOrCreate()
+    
+    return newsc
+
+
 def get_mongo_spark_for_thread():
     sc = SparkSession \
             .builder \
@@ -57,3 +71,6 @@ def get_mongo_spark_for_thread():
             .getOrCreate()
     
     return sc
+
+
+sc = LocalProxy(get_mongo_spark)

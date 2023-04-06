@@ -23,7 +23,10 @@ function predict() {
 
         const collection_name = window.location.pathname.split("/")
         socket.emit("start", collection_name.at(-1))
+
     });
+
+
     
     socket.on("message", (arg) => {
         const box = document.createElement("div")
@@ -45,7 +48,7 @@ function predict() {
     });
     
     socket.on("disconnect", () => {
-        console.log(socket.id); // undefined
+        console.log("here", socket.id); // undefined
     });
 
     socket.on("html", (msg) => {
