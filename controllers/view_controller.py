@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 
-from services.mongo_service import get_by_collection_with_page, get_collection_page_size, get_collection_expain, insert_one_to_collection
+from services.mongo_service import get_by_collection_with_page, get_collection_list, get_collection_page_size, get_collection_expain, insert_one_to_collection
 from utils import get_adjust_pagination
 
 view_controller = Blueprint('view_controller', __name__, template_folder='templates')
@@ -51,9 +51,13 @@ def add(collection):
         return redirect('/collections')
     
 
-@view_controller.route('/predict/<collection>')
-def predict(collection):
+@view_controller.route('/demo/<collection>')
+def demo(collection):
+    collections = get_collection_list()
+
+    if not collection in collections:
+        raise Exception(f"Unable to find {collection} in database")
     result = {
         "title": collection
     }
-    return render_template(f'pages/predict.html', data=result)
+    return render_template(f'pages/demo.html', data=result)

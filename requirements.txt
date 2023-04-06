@@ -4,3 +4,15 @@ Flask-PyMongo
 pymongo
 pyspark
 flask-socketio
+simple-websocket
+seaborn
+pandas==1.5
+pyarrow
+umap-learn
+scikit-learn
+plotly
+dataframe-image
+kaleido
+gunicorn
+gevent
+gevent-websocket

@@ -1,3 +1,16 @@
 .right-space {
     margin-right: 6px;
 }
+
+.predict-result {
+    width: 70%;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.fancy-box {
+    margin-bottom: 25px;
+}

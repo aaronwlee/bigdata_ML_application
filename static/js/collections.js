@@ -65,8 +65,8 @@ async function reload_collections() {
       `<i class="bi bi-trash3"></i>`,
       `</a>`,
 
-      `<a id="predict" role="button" class="btn btn-primary" href="/predict/${collection}">`,
-      `Predict`,
+      `<a id="demo" role="button" class="btn btn-primary" href="/demo/${collection}">`,
+      `Demo`,
       `</a>`,
     ].join('')
     

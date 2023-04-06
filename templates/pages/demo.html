@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% block title %}Predict{% endblock %}
+{% block title %}Deno{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -7,7 +7,12 @@
     <h1>{{ data.title }}</h1>
     <hr style="margin-bottom: 60px;"/>
   </div>
+</div>
+
+<div id="ml-progress" class="container">
 
 </div>
+
+<script type="module" src="/static/js/demo.js"></script>
 
 {% endblock %}
