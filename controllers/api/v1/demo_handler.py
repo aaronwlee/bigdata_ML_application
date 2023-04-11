@@ -78,10 +78,11 @@ def test_disconnect():
 
 @socketio.on('start')
 def handle_message(collection):
+    emit_message("[Stage: 1] Spark Init")
+    sc = get_mongo_spark_for_thread()
+
     try:
         emit_message("[Stage: 1] Spark Ready")
-        sc = get_mongo_spark_for_thread()
-
         emit_message("[Stage: 2] Load data from MongoDB")
         df = sc.read.format("mongodb").option("database", "bigdata").option("collection", collection).load()
         df = df.drop("_id")
