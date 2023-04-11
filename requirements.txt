@@ -13,3 +13,5 @@ scikit-learn
 plotly
 dataframe-image
 kaleido
+numpy==1.23.5
+
