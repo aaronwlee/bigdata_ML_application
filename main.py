@@ -22,7 +22,7 @@ def create_app():
     # App Config.
     #----------------------------------------------------------------------------#
 
-    load_dotenv() # load .env file
+    # load_dotenv() # load .env file
     app = Flask(__name__)
     app.config.from_pyfile('config.py') # this config for the basic application setup
 
