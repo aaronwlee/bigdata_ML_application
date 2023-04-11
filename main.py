@@ -13,8 +13,7 @@ import os
 
 from database import MongoJsonEncoder
 
-MAX_BUFFER_SIZE = 50 * 1000 * 1000  # 50 MB
-socketio = SocketIO(max_http_buffer_size=MAX_BUFFER_SIZE, cors_allowed_origins="*")
+socketio = SocketIO(cors_allowed_origins="*")
 
 def create_app():
 
