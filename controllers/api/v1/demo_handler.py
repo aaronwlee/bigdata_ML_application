@@ -543,8 +543,6 @@ def handle_message(collection):
     except Exception as err:
         print(err)
         emit_message(f"[Error] {err}")
-    finally:
-        sc.stop()
 
 
 
