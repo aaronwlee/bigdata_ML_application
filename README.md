@@ -18,5 +18,9 @@ python app.py
 # Docker
 
 ## Build and Upload
-docker build -t bigdata-ml-app:v1.0 .
-docker push bigdata-ml-app:v1.0
+
+- docker build -t aaronwoolee/bigdata-ml-app:v1.0 .
+- docker push aaronwoolee/bigdata-ml-app:v1.0
+
+## Compose up
+- docker compose up
