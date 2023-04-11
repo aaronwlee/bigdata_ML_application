@@ -17,6 +17,10 @@ def insert_by_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             file_name = secure_filename(file.filename)
+            try:
+                os.mkdir(current_app.config['UPLOAD_FOLDER'])
+            except Exception:
+                print("Folder existed, good to go")
             file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file_name)
             file.save(file_path)
             th = Thread(target=sprak_write_file_to_mongo, args=(file_name, file_path, set_event, clear_event), daemon=True)

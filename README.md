@@ -14,3 +14,9 @@ Server-side rendering-based applications are built using Flask and Jinja engines
 
 # Run
 python app.py
+
+# Docker
+
+## Build and Upload
+docker build -t bigdata-ml-app:v1.0 .
+docker push bigdata-ml-app:v1.0
