@@ -5,7 +5,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/bigdata
+      - MONGO_URI=mongodb://mongo:27017/bigdata
   mongo:
     image: "mongo:latest"
     ports:
