@@ -4,7 +4,10 @@ services:
     image: "aaronwoolee/bigdata-ml-app:v1.0"
     ports:
       - "80:80"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/bigdata
   mongo:
     image: "mongo:latest"
     ports:
       - "27017:27017"
+      
