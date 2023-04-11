@@ -13,14 +13,5 @@ Server-side rendering-based applications are built using Flask and Jinja engines
 4. spark application may needed
 
 # Run
-python app.py
-
-# Docker
-
-## Build and Upload
-
-- docker build -t aaronwoolee/bigdata-ml-app:v1.1 .
-- docker push aaronwoolee/bigdata-ml-app:v1.1
-
-## Compose up
-- docker compose up
+docker run -p 27017:27017 -d mongo:latest
+MONGO_URI=mongodb://localhost:27017/bigdata python app.py

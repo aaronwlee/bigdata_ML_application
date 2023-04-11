@@ -43,24 +43,12 @@ def get_mongo_spark():
             .builder \
             .appName("myApp") \
             .master(f"local[{os.cpu_count()}]") \
-            .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
-            .getOrCreate()
-       
-    return sc
-
-def get_new_mongo_spark():
-    newsc = sc.newSession()
-    newsc = newsc \
-            .builder \
-            .appName("myApp") \
-            .config("spark.driver.cores", "3") \
-            .config("spark.executor.memory", "2g") \
             .config("spark.mongodb.read.connection.uri", os.getenv("MONGO_URI")) \
             .config("spark.mongodb.write.connection.uri", os.getenv("MONGO_URI")) \
             .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
             .getOrCreate()
-    
-    return newsc
+       
+    return sc
 
 
 def get_mongo_spark_for_thread():
@@ -68,6 +56,8 @@ def get_mongo_spark_for_thread():
             .builder \
             .appName("myApp") \
             .master(f"local[{os.cpu_count()}]") \
+            .config("spark.mongodb.read.connection.uri", os.getenv("MONGO_URI")) \
+            .config("spark.mongodb.write.connection.uri", os.getenv("MONGO_URI")) \
             .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
             .getOrCreate()
     
