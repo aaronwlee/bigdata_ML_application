@@ -3,7 +3,8 @@ mpl.use('Agg')
 
 from flask import current_app, request
 from flask_socketio import emit
-from database import get_mongo_spark_for_thread
+from database import get_mongo_spark
+from werkzeug.local import LocalProxy
 from main import socketio
 
 # Import PySpark Pandas
@@ -33,6 +34,8 @@ from io import BytesIO
 import os
 
 connections = []
+
+sc = LocalProxy(get_mongo_spark)
 
 def emit_img(buffer):
     id = request.sid
@@ -78,13 +81,10 @@ def test_disconnect():
 @socketio.on('start')
 def handle_message(collection):
     try:
-        emit_message("[Stage: 1] Spark init")
-        sc = get_mongo_spark_for_thread()
         emit_message("[Stage: 1] Spark Ready")
 
-
         emit_message("[Stage: 2] Load data from MongoDB")
-        df = sc.read.format("mongodb").option("database", "bigdata").option("collection", collection).load()
+        df = sc.read.format("mongodb").option("uri", os.getenv("MONGO_URI")).option("database", "bigdata").option("collection", collection).load()
         df = df.drop("_id")
         emit_dataframe(df.toPandas().head(5))
         emit_message(f"[Stage: 2] DataFrame Dimensions : {(df.count(),len(df.columns))}")
@@ -543,7 +543,6 @@ def handle_message(collection):
     except Exception as err:
         print(err)
         emit_message(f"[Error] {err}")
-        sc.stop()
 
 
 

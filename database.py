@@ -12,6 +12,8 @@ from datetime import datetime
 
 from werkzeug.local import LocalProxy
 
+print("CPU count==", os.cpu_count())
+
 class MongoJsonEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime):
@@ -37,14 +39,10 @@ def get_mongo_spark():
     sc = getattr(g, "_spark", None)
 
     if sc is None:
-
         sc = g._spark = SparkSession \
             .builder \
             .appName("myApp") \
-            .config("spark.driver.cores", "3") \
-            .config("spark.executor.memory", "2g") \
-            .config("spark.mongodb.read.connection.uri", os.getenv("MONGO_URI")) \
-            .config("spark.mongodb.write.connection.uri", os.getenv("MONGO_URI")) \
+            .master(f"local[{os.cpu_count()}]") \
             .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
             .getOrCreate()
        
@@ -69,10 +67,7 @@ def get_mongo_spark_for_thread():
     sc = SparkSession \
             .builder \
             .appName("myApp") \
-            .config("spark.driver.cores", "3") \
-            .config("spark.executor.memory", "2g") \
-            .config("spark.mongodb.read.connection.uri", os.getenv("MONGO_URI")) \
-            .config("spark.mongodb.write.connection.uri", os.getenv("MONGO_URI")) \
+            .master(f"local[{os.cpu_count()}]") \
             .config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:10.1.1') \
             .getOrCreate()
     
