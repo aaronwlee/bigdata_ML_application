@@ -1,4 +1,6 @@
-FROM python:3.9-bullseye
+FROM openjdk:slim
+
+COPY --from=python:3.9-bullseye / /
 
 WORKDIR /app
 
