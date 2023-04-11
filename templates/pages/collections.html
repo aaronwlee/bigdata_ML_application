@@ -10,15 +10,17 @@
       </h1>
     </div>
     <div class="col-4 text-end">
-        <button id="upload_modal_toggle" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload_modal">
+        <button id="upload_modal_toggle" type="button" class="btn btn-primary col-12 col-md-4" data-bs-toggle="modal" data-bs-target="#upload_modal">
           Upload
         </button>
 
-        <button id="refresh" type="button" class="btn btn-primary" onclick="window.reload_collections()">
+        <button id="refresh" type="button" class="btn btn-primary col-5 col-md-2" onclick="window.reload_collections()">
           <i class="bi bi-arrow-repeat"></i>
         </button>
     </div>
   </div>
+
+  <br>
 
   <div class="row">
     <p>Upload the csv file and register it in the database.
@@ -33,9 +35,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Collection Name</th>
-      <th class="text-center" scope="col">Actions</th>
+      <th class="col-1" scope="col">#</th>
+      <th class="col-6" scope="col">Collection Name</th>
+      <th class="col-5 text-end" scope="col">Actions</th>
     </tr>
   </thead>
   <tbody id="collection-target" class="table-group-divider"><tr></tr></tbody>

@@ -48,11 +48,13 @@ async function reload_collections() {
     // create collection number table data
     const th = document.createElement("th")
     th.setAttribute("scope", "row")
+    th.setAttribute("class", "col-1")
     th.innerText = i+1
 
     // create collection name table data
     const collection_name = document.createElement("td")
-    collection_name.setAttribute("style", "cursor: pointer;")
+    collection_name.setAttribute("style", "cursor: pointer; word-break:break-word;")
+    collection_name.setAttribute("class", "col-8 col-md-7")
     collection_name.onclick = () => {
       window.location.href = `/detail/${collection}`
     }
@@ -60,17 +62,17 @@ async function reload_collections() {
 
     // create append table data
     const appendTd = document.createElement("td")
-    appendTd.setAttribute("class", "text-center")
+    appendTd.setAttribute("class", "text-end col-3 col-md-4")
     appendTd.innerHTML = [
-      `<a role="button" class="btn btn-primary right-space" href="/add/${collection}">`,
+      `<a role="button" class="btn btn-primary right-space col-12 col-md-2" href="/add/${collection}">`,
       `<i class="bi bi-pencil"></i>`,
       `</a>`,
 
-      `<a id="delete-collection" role="button" class="btn btn-primary right-space">`,
+      `<a id="delete-collection" role="button" class="btn btn-primary right-space col-12 col-md-2">`,
       `<i class="bi bi-trash3"></i>`,
       `</a>`,
 
-      `<a id="demo" role="button" class="btn btn-primary" href="/demo/${collection}">`,
+      `<a id="demo" role="button" class="btn btn-primary col-12 col-md-3" href="/demo/${collection}">`,
       `Demo`,
       `</a>`,
     ].join('')

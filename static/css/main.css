@@ -3,7 +3,7 @@
 }
 
 .predict-result {
-    width: 70%;
+    width: 70vw;
 }
 
 .flex-center {
@@ -13,4 +13,9 @@
 
 .fancy-box {
     margin-bottom: 25px;
+}
+
+.btn {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
