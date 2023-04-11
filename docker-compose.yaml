@@ -4,10 +4,14 @@ services:
     image: "aaronwoolee/bigdata-ml-app:v1.1"
     ports:
       - "80:80"
+    deploy:
+      replicas: 2
     environment:
       - MONGO_URI=mongodb://mongo:27017/bigdata
   mongo:
     image: "mongo:latest"
+    deploy:
+      replicas: 2
     ports:
       - "27017:27017"
       
