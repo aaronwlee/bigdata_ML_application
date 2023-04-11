@@ -6,6 +6,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # Enable debug mode.
 DEBUG = True
 UPLOAD_FOLDER = './temp'
-PORT = 80
+PORT = 8080
 
 SECRET_KEY = 'non-secret-key'

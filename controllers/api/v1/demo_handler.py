@@ -84,7 +84,7 @@ def handle_message(collection):
         emit_message("[Stage: 1] Spark Ready")
 
         emit_message("[Stage: 2] Load data from MongoDB")
-        df = sc.read.format("mongodb").option("uri", os.getenv('MONGO_URI')).option("database", "bigdata").option("collection", collection).load()
+        df = sc.read.format("mongodb").option("database", "bigdata").option("collection", collection).load()
         df = df.drop("_id")
         emit_dataframe(df.toPandas().head(5))
         emit_message(f"[Stage: 2] DataFrame Dimensions : {(df.count(),len(df.columns))}")

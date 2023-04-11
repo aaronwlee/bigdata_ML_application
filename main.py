@@ -8,7 +8,6 @@ from flask_socketio import SocketIO
 import logging
 from logging import Formatter, FileHandler
 
-from dotenv import load_dotenv
 import os
 
 from database import MongoJsonEncoder
@@ -21,7 +20,6 @@ def create_app():
     # App Config.
     #----------------------------------------------------------------------------#
 
-    # load_dotenv() # load .env file
     app = Flask(__name__)
     app.config.from_pyfile('config.py') # this config for the basic application setup
 
