@@ -13,7 +13,3 @@ scikit-learn
 plotly
 dataframe-image
 kaleido
-
-gunicorn
-gevent
-gevent-websocket
